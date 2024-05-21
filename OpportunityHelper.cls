@@ -24,23 +24,29 @@ public class OpportunityHelper {
         }
         Integer nullAccountCount = [SELECT COUNT() FROM Opportunity WHERE AccountId = null];
 
-        for(Opportunity opp : opportunities) {
-            Integer count = 1;
-            String uniqueNumber = '';
+    for(Opportunity opp : opportunities) {
+        
+    	Integer count = 1;
+    	String uniqueNumber = '';
 
-            if(opp.AccountId != null) {
-                if(countOfOpps.containsKey(opp.AccountId)) {
-                    count = countOfOpps.get(opp.AccountId) + 1;
-                    countOfOpps.put(opp.AccountId, count);
-                }
-                
-                uniqueNumber = accountNames.get(opp.AccountId) + ' OPP' + count;
+        if(opp.AccountId != null) {
+            if(countOfOpps.containsKey(opp.AccountId)) {
+                count = countOfOpps.get(opp.AccountId) + 1;
+                countOfOpps.put(opp.AccountId, count);
             } else {
-                uniqueNumber = 'OPP' + nullAccountCount;
-                nullAccountCount = nullAccountCount + 1;
+                countOfOpps.put(opp.AccountId, count);
             }
-            
-            opp.AutoNumber__c = uniqueNumber;
+            String c = String.valueOf(count).leftpad(3, '0');
+            uniqueNumber = accountNames.get(opp.AccountId) + ' OPP ' + c;
+        } else {
+            String c = String.valueOf(nullAccountCount).leftpad(3, '0');
+            uniqueNumber = 'OPP ' + c;
+            nullAccountCount = nullAccountCount + 1;
         }
+    
+        opp.AutoNumber__c = uniqueNumber;
+    }
+
+
     }
 }
