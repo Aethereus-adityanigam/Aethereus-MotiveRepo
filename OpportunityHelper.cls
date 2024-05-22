@@ -16,9 +16,12 @@ public class OpportunityHelper {
             accountToOpps.get(opp.AccountId).add(opp);
         }
 
-        for(Id accId : accountIds) {
-            countOfOpps.put(accId, accountToOpps.get(accId).size());
-        }
+        for (Id accId : accountIds) {
+        List<Opportunity> opportunities2 = accountToOpps.get(accId);
+        integer size = (opportunities2 != null) ? opportunities2.size() : 0;
+        countOfOpps.put(accId, size);
+    }
+
         for(Account acc : [select Id, Name from Account where Id in :accountIds]) {
             accountNames.put(acc.Id, acc.Name);
         }
@@ -43,10 +46,5 @@ public class OpportunityHelper {
             uniqueNumber = 'OPP ' + c;
             nullAccountCount = nullAccountCount + 1;
         }
-    
         opp.AutoNumber__c = uniqueNumber;
-    }
-
-
-    }
-}
+    }   }}
