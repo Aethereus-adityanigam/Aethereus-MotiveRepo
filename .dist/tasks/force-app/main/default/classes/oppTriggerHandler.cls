@@ -4,14 +4,14 @@ public with sharing class oppTriggerHandler {
         //custom label
         List<String>fieldnames=System.Label.OpportunityFieldNames.split(',');
         String changedValuesString='';
-        Set<Id>OpportunityIds=new Set<id>();
+        Set<Id>opportunityOwnerIds=new Set<id>();
         Map<Id,Id>opportunityAndOwner=new Map<Id,Id>();
         for(Opportunity opp:OppNewRec)
         {
-            OpportunityIds.add(opp.OwnerId);
+            opportunityOwnerIds.add(opp.OwnerId);
         }
         Map<Id,String>UserDetails=new Map<Id,String>();
-        List<User>username=[select id,FirstName from user where id in:OpportunityIds];
+        List<User>username=[select id,FirstName from user where id in:opportunityOwnerIds];
         for(User u:username)
         {
             UserDetails.put(u.Id,u.FirstName);
