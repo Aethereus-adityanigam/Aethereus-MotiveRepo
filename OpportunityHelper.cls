@@ -29,20 +29,18 @@ public class OpportunityHelper {
 
     for(Opportunity opp : opportunities) {
         
-    	Integer count = 1;
+    	Integer count ;
     	String uniqueNumber = '';
 
         if(opp.AccountId != null) {
-            if(countOfOpps.containsKey(opp.AccountId)) {
                 count = countOfOpps.get(opp.AccountId) + 1;
                 countOfOpps.put(opp.AccountId, count);
-            } else {
-                countOfOpps.put(opp.AccountId, count);
-            }
+            
             String c = String.valueOf(count).leftpad(3, '0');
             uniqueNumber = accountNames.get(opp.AccountId) + ' OPP ' + c;
-        } else {
-            String c = String.valueOf(nullAccountCount).leftpad(3, '0');
+        }
+        else {
+            String c = String.valueOf(nullAccountCount+1).leftpad(3, '0');
             uniqueNumber = 'OPP ' + c;
             nullAccountCount = nullAccountCount + 1;
         }
