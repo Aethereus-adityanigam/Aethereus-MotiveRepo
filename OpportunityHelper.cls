@@ -1,0 +1,48 @@
+public class OpportunityHelper {
+    public static void updateOpportunityAutoNumbers(list<Opportunity> opportunities) {
+        set<Id> accountIds = new set<Id>();
+        map<Id, List<Opportunity>> accountToOpps = new map<Id, List<Opportunity>>();
+        map<Id, Integer> countOfOpps = new map<Id, Integer>();
+        map<Id, String> accountNames = new map<Id, String>();
+        for(Opportunity opp : opportunities) {
+            if(opp.AccountId != null) {
+                accountIds.add(opp.AccountId);
+            }
+        }
+        for(Opportunity opp : [select Id, AccountId from Opportunity where AccountId in :accountIds]) {
+            if(!accountToOpps.containsKey(opp.AccountId)) {
+                accountToOpps.put(opp.AccountId, new List<Opportunity>());
+            }
+            accountToOpps.get(opp.AccountId).add(opp);
+        }
+
+        for (Id accId : accountIds) {
+        List<Opportunity> opportunities2 = accountToOpps.get(accId);
+        integer size = (opportunities2 != null) ? opportunities2.size() : 0;
+        countOfOpps.put(accId, size);
+    }
+
+        for(Account acc : [select Id, Name from Account where Id in :accountIds]) {
+            accountNames.put(acc.Id, acc.Name);
+        }
+        Integer nullAccountCount = [SELECT COUNT() FROM Opportunity WHERE AccountId = null];
+
+    for(Opportunity opp : opportunities) {
+        
+    	Integer count ;
+    	String uniqueNumber = '';
+
+        if(opp.AccountId != null) {
+                count = countOfOpps.get(opp.AccountId) + 1;
+                countOfOpps.put(opp.AccountId, count);
+            
+            String c = String.valueOf(count).leftpad(3, '0');
+            uniqueNumber = accountNames.get(opp.AccountId) + ' OPP ' + c;
+        }
+        else {
+            String c = String.valueOf(nullAccountCount+1).leftpad(3, '0');
+            uniqueNumber = 'OPP ' + c;
+            nullAccountCount = nullAccountCount + 1;
+        }
+        opp.AutoNumber__c = uniqueNumber;
+    }   }}
