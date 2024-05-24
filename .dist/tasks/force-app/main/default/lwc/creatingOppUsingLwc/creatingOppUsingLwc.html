@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Creating new Opportunities">
+            <lightning-record-form
+            object-api-name="Opportunity"
+            fields={fields}
+            columns="2"
+            onsuccess={handleSuccess}
+            onerror={handleError}
+            onsubmit={handleFormLoad}
+            record-id={accountId}
+            >
+        </lightning-record-form>
+    </lightning-card>
+</template>
