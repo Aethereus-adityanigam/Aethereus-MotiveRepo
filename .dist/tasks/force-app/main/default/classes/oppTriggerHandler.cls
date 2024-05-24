@@ -4,17 +4,27 @@ public with sharing class oppTriggerHandler {
         //custom label
         List<String>fieldnames=System.Label.OpportunityFieldNames.split(',');
         String changedValuesString='';
+        Set<Id>OpportunityIds=new Set<id>();
+        Map<Id,Id>opportunityAndOwner=new Map<Id,Id>();
         for(Opportunity opp:OppNewRec)
         {
-            //retriving the username
-            user owner=[select FirstName from user where Id=:opp.OwnerId];
+            OpportunityIds.add(opp.OwnerId);
+        }
+        Map<Id,String>UserDetails=new Map<Id,String>();
+        List<User>username=[select id,FirstName from user where id in:OpportunityIds];
+        for(User u:username)
+        {
+            UserDetails.put(u.Id,u.FirstName);
+        }
+        for(Opportunity opp:OppNewRec)
+        {            
             Opportunity oppold=OppOldRec.get(opp.Id);
             changedValuesString+=Stringgeneration(opp,OppOldRec,fieldnames);
             if (changedValuesString.length()>0) {
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setSubject('Opportunity updated');
                 email.setToAddresses(new String[]{opp.OwnerId});
-                email.setPlainTextBody('Hi '+Owner.FirstName +',\n\n'+changedValuesString);
+                email.setPlainTextBody('Hi '+UserDetails.get(opp.OwnerId) +',\n\n'+changedValuesString);
                 Messaging.sendEmail(new Messaging.SingleEmailMessage[]{email});
             }
         }
