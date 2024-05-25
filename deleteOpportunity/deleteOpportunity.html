@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Delete Opportunity">
+    <lightning-record-edit-form
+        object-api-name="oppChild__c"
+        onsuccess={handleSuccess}>
+        
+        <div class="slds-m-around_medium">
+            <lightning-input-field
+                field-name="Opportunity__c"
+                onchange={handleChange}>
+            </lightning-input-field>
+            <lightning-button class="slds-m-left_small"
+                variant="brand" 
+                label="Delete" 
+                onclick={handleDelete}>
+            </lightning-button>
+            <lightning-button class="slds-m-left_small" label="Exit" onclick={handleExit} variant="brand" ></lightning-button>
+        </div>
+    </lightning-record-edit-form>
+</lightning-card>
+</template>

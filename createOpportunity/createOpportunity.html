@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Create the Opportunity">
+        <lightning-record-edit-form
+            object-api-name="Opportunity"
+            onsuccess={handleSuccess}
+            onerror={handleError}
+            onsubmit={handleSubmit}>
+            
+            <lightning-messages></lightning-messages>
+            <lightning-input-field field-name="Name"></lightning-input-field>
+            <lightning-input-field field-name="AccountId" value={recordId}></lightning-input-field>
+            <lightning-input-field field-name="CloseDate"></lightning-input-field>
+            <lightning-input-field field-name="StageName"></lightning-input-field>
+            <lightning-input-field field-name="Type"></lightning-input-field>
+            <lightning-button
+                class="slds-m-top_small"
+                variant="brand"
+                type="submit"
+                label="Create Opportunity"
+            ></lightning-button>
+            <lightning-button class="slds-m-left_small" label="Exit" onclick={handleExit} variant="brand" ></lightning-button>
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>
