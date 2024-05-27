@@ -9,11 +9,7 @@ export default class DeleteOpportunity extends LightningElement {
 
     handleChange(event) {
         const recordId = event.detail.value;
-        if (Array.isArray(recordId)) {
-            this.opportunityId = recordId[0];
-        } else {
-            this.opportunityId = recordId;
-        }
+        this.opportunityId = recordId[0];
         console.log('Extracted Opportunity ID:', this.opportunityId);
     }
     
