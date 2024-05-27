@@ -46,16 +46,6 @@ export default class DeleteOpportunity extends LightningElement {
             inputField.value = null;
         }
     }
-    handleExit() {
-        console.log('delete working');
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Account',
-                actionName: 'list'
-            }
-        });
     
-}
     
 }

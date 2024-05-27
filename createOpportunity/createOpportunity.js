@@ -15,7 +15,8 @@ export default class CreateOpportunity extends LightningElement {
             accountId: fields.AccountId, 
             closeDate: fields.CloseDate, 
             stageName: fields.StageName,
-            type: fields.Type 
+            type: fields.Type ,
+            amount:fields.Amount
         })
         .then(result => {
             this.dispatchEvent(
@@ -28,18 +29,14 @@ export default class CreateOpportunity extends LightningElement {
             this.clearFields();
         })
         .catch(error => {
-            let errorMessage = 'Error creating opportunity';
-            if (error && error.body && error.body.message) {
-                errorMessage = error.body.message;
-            }
-            this.dispatchEvent(
+                this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
-                    message: errorMessage,
+                    message: error.body.message,
                     variant: 'error',
                 }),
             );
-            this.clearFields();
+            
         });
     }
 
@@ -51,14 +48,5 @@ export default class CreateOpportunity extends LightningElement {
             });
         }
     }
-    handleExit() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Account',
-                actionName: 'list'
-            }
-        });
-    
-}
+  
 }

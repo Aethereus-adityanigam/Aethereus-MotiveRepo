@@ -1,7 +1,8 @@
-import { LightningElement } from 'lwc';
+import { LightningElement ,api} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class OpportunityConsole extends NavigationMixin(LightningElement) {
+  
     handleCreateOpportunity() {
         this[NavigationMixin.Navigate]({
             type: 'standard__navItemPage',
@@ -31,4 +32,5 @@ export default class OpportunityConsole extends NavigationMixin(LightningElement
             }
         });
     
-}}
+}
+}

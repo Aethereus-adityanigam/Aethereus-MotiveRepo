@@ -9,12 +9,13 @@
                 field-name="Opportunity__c"
                 onchange={handleChange}>
             </lightning-input-field>
+            <div class="slds-align_absolute-center">
             <lightning-button class="slds-m-left_small"
                 variant="brand" 
                 label="Delete" 
                 onclick={handleDelete}>
-            </lightning-button>
-            <lightning-button class="slds-m-left_small" label="Exit" onclick={handleExit} variant="brand" ></lightning-button>
+            </lightning-button></div>
+            
         </div>
     </lightning-record-edit-form>
 </lightning-card>

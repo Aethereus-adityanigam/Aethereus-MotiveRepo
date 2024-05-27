@@ -9,12 +9,13 @@ public with sharing class OpportunityController {
         }}
  
         @AuraEnabled
-        public static string createOpportunity(String name, String accountId, Date closeDate, String stageName,string type ) {
+        public static string createOpportunity(String name, String accountId, Date closeDate, String stageName,string type ,integer amount) {
             Opportunity opp = new Opportunity(
                 Name = name,
                 AccountId = accountId,
                 CloseDate = closeDate,
-                StageName = stageName
+                StageName = stageName,
+                Amount = amount
             );
             
             try {
