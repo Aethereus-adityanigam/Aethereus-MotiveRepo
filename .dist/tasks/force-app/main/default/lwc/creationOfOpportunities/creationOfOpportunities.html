@@ -1,0 +1,80 @@
+<template>
+  <template if:true={isModalOpen}>
+    <div class="custom-modal">
+      <section role="dialog" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+          <lightning-button-icon 
+            icon-class="slds-button_icon-inverse"
+            icon-name="utility:close"
+            alternative-text="Add user"
+            class="slds-modal__close"
+            onclick={closebutton}
+          ></lightning-button-icon>
+          </header>
+          <div class="slds-size_full">
+            <lightning-card icon-name="standard:opportunity" variant="base" title="Creating New Opportunity">
+              <div>
+                  <lightning-input type="text" label="Name" value={rec.Name} onchange={handletext} required="true"></lightning-input>
+                  <lightning-combobox name="progress"
+                    label="Stage"
+                    value={rec.Stage}
+                    options={options}
+                    onchange={handleChange} required="true"
+                  ></lightning-combobox>
+                  <lightning-input type="date" name="input1" label="CloseDate" value={rec.CloseDate} onchange={handledate} required="true"></lightning-input>
+                  <!-- <lightning-input 
+                    type="text"
+                    label="AccountId"
+                    value={accountName}
+                  ></lightning-input> -->
+              </div>
+              <template if:true={recordId}>
+      
+              </template>
+      
+              <br>
+              <div class="slds-align_absolute-center">
+              <lightning-button class="slds-m-right_small"
+                variant="brand"
+                label="save" 
+                onclick={handleClick} 
+              ></lightning-button>
+              </div>
+          </lightning-card>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!--<lightning-card icon-name="standard:opportunity" variant="base" title="Creating New Opportunity">
+        <div class="slds-align_absolute-center">
+            <lightning-input type="text" label="Name" value={rec.Name} onchange={handletext}></lightning-input>
+            <lightning-combobox name="progress"
+              label="Stage"
+              value={rec.Stage}
+              options={options}
+              onchange={handleChange} 
+            ></lightning-combobox>
+            <lightning-input type="date" name="input1" label="CloseDate" value={rec.CloseDate} onchange={handledate}></lightning-input>
+        </div>
+        <template if:true={recordId}>
+
+        </template>
+
+        <br>
+        <div class="slds-align_absolute-center">
+        <lightning-button 
+          variant="brand"
+          label="save" 
+          onclick={handleClick} 
+        ></lightning-button>
+        <lightning-button 
+          variant="brand"
+          label="Cancel" 
+          onclick={handleClick2} 
+        ></lightning-button>
+        </div>
+    </lightning-card>-->
+  </template>
+</template>
